@@ -1,8 +1,8 @@
 import React from 'react';
-import PreAssignmentGuide from './pages/PreAssignmentGuide';
+import LoginPage from './pages/LoginPage';
 
 function App() {
-  return <PreAssignmentGuide />;
+  return <LoginPage />;
 }
 
 export default App;
