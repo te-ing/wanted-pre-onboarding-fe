@@ -1,16 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import GNB from '../components/GNB';
 
 const MainPage = () => {
-  return <Container>메인페이지</Container>;
+  return (
+    <Container>
+      <GNB />
+    </Container>
+  );
 };
 
 export default MainPage;
 
 const Container = styled.div`
   display: flex;
-  height: 100vh;
+  padding-top: 60px;
   justify-content: center;
-  align-items: center;
   background-color: #fafafa;
 `;
