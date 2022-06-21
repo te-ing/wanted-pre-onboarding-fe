@@ -1,10 +1,8 @@
-import React, { useRef } from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Comments from './Comments';
 
-const Post = ({ post }) => {
+const Post = ({ post, isLoading }) => {
   const { author, title, image } = post;
 
   return (
@@ -15,7 +13,7 @@ const Post = ({ post }) => {
       </AuthorContainer>
       <Title>{title}</Title>
       <ImageContainer>
-        <PostImage src={image} />
+        <PostImage src={image} onLoad={() => isLoading && isLoading(false)} />
       </ImageContainer>
       <Comments post={post} />
     </Container>

@@ -2,13 +2,14 @@ import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import GNB from '../components/GNB';
 import Post from '../components/Post';
 
 const MainPage = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isImageLoading, setIsImageLoading] = useState(true);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -26,11 +27,18 @@ const MainPage = () => {
   return (
     <Container>
       <GNB />
-      <PostContainer>
+      <Loading isImageLoading={isImageLoading} />
+      <PostContainer isImageLoading={isImageLoading}>
         {isLoading
           ? 'Loading...'
-          : posts.map((post) => {
-              return <Post key={post.id} post={post} />;
+          : posts.map((post, idx) => {
+              return (
+                <Post
+                  key={post.id}
+                  post={post}
+                  isLoading={posts.length - 1 === idx && setIsImageLoading}
+                />
+              );
             })}
       </PostContainer>
     </Container>
@@ -46,8 +54,25 @@ const Container = styled.div`
 `;
 
 const PostContainer = styled.section`
-  display: flex;
+  display: ${({ isImageLoading }) => (isImageLoading ? 'none' : 'flex')};
   flex-direction: column;
   gap: 60px;
   padding: 20px;
+`;
+const loadingTime = keyframes`
+  from {
+    width: 100px;
+  }
+  to {
+    transform: scale(1)
+  }
+`;
+
+const Loading = styled.div`
+  display: ${({ isImageLoading }) => (!isImageLoading ? 'none' : 'flex')};
+  width: 100%;
+  height: 3px;
+  background-color: coral;
+  border-bottom: solid 1px lightgray;
+  animation: ${loadingTime} 2s ease-out forwards infinite;
 `;
