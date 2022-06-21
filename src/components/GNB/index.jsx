@@ -4,7 +4,6 @@ import { MEDIUM } from '../../constants/responsiveSize';
 import { useNavigate } from 'react-router-dom';
 
 const GNB = () => {
-  const vw = document.documentElement.clientWidth;
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -16,7 +15,7 @@ const GNB = () => {
     <Container>
       <HeaderContainer>
         <Logo className="material-symbols-outlined">camera_enhance</Logo>
-        <Input vw={vw} placeholder="🔍" />
+        <Input placeholder="🔍" />
         <NavContainer>
           <button className="material-symbols-outlined">send</button>
           <button className="material-symbols-outlined">favorite</button>
@@ -57,7 +56,7 @@ const Logo = styled.span`
 `;
 
 const Input = styled.input`
-  display: ${({ vw }) => (vw > MEDIUM ? 'flex' : 'none')};
+  display: flex;
   width: 240px;
   height: 30px;
   padding: 10px;
@@ -65,6 +64,10 @@ const Input = styled.input`
   ::placeholder {
     filter: grayscale(100%);
     text-align: end;
+  }
+
+  @media only screen and (max-width: ${MEDIUM}px) {
+    display: none;
   }
 `;
 
