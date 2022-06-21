@@ -1,16 +1,56 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import { validateEmail, validatePassword } from '../utils/validateInput';
 
 const LoginPage = () => {
+  const [isValidId, setIsValidId] = useState(true);
+  const [isValidPw, setIsValidPw] = useState(true);
+  const idInput = useRef();
+  const pwInput = useRef();
+  const disabledLogin =
+    !idInput.current?.value ||
+    !pwInput.current?.value ||
+    !isValidId ||
+    !isValidPw;
+
+  const handleIdValue = () => {
+    const id = idInput.current.value;
+    validateEmail(id) ? setIsValidId(true) : setIsValidId(false);
+  };
+  const handlePwValue = () => {
+    const password = pwInput.current.value;
+    validatePassword(password) ? setIsValidPw(true) : setIsValidPw(false);
+  };
+  const submitLogin = () => {
+    console.log(idInput.current.value, pwInput.current.value);
+  };
+
   return (
     <Container>
       <LoginContainer>
         <Title>Instagram</Title>
-        <InputContainer>
-          <Input placeholder="전화번호, 사용자 이름 또는 이메일" />
-          <Input placeholder="비밀번호" />
+        <InputContainer
+          onKeyDown={(e) =>
+            e.code === 'Enter' && !disabledLogin && submitLogin()
+          }
+        >
+          <Input
+            ref={idInput}
+            placeholder="이메일"
+            onChange={handleIdValue}
+            validate={isValidId}
+          />
+          <Input
+            ref={pwInput}
+            type="password"
+            placeholder="비밀번호 (대문자, 숫자, 특수문자 포함 8자리 이상)"
+            onChange={handlePwValue}
+            validate={isValidPw}
+          />
         </InputContainer>
-        <Button>로그인</Button>
+        <Button onClick={submitLogin} disabled={disabledLogin}>
+          로그인
+        </Button>
       </LoginContainer>
     </Container>
   );
@@ -45,7 +85,7 @@ const Title = styled.h1`
   line-height: 90px;
 `;
 
-const InputContainer = styled.div`
+const InputContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,11 +97,12 @@ const Input = styled.input`
   height: 40px;
   width: 300px;
   padding: 8px;
-  border: solid 1px lightgray;
+  border: solid 1px ${({ validate }) => (validate ? 'lightgray' : 'red')};
   border-radius: 4px;
   font-size: 16px;
+
   :focus {
-    border: solid 1px #a9a9a9;
+    box-shadow: 1px 1px 1px 0 #a9a9a9;
   }
   ::placeholder {
     color: #a9a9a9;
@@ -76,7 +117,11 @@ const Button = styled.button`
   color: white;
   border-radius: 8px;
   background-color: #0095f6;
+
   :hover {
+    background-color: #0089e4;
+  }
+  :focus {
     background-color: #0089e4;
   }
   :active {
