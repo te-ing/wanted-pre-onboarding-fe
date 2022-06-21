@@ -1,12 +1,14 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { validateEmail, validatePassword } from '../utils/validateInput';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [isValidId, setIsValidId] = useState(true);
   const [isValidPw, setIsValidPw] = useState(true);
   const idInput = useRef();
   const pwInput = useRef();
+  const navigate = useNavigate();
   const disabledLogin =
     !idInput.current?.value ||
     !pwInput.current?.value ||
@@ -22,7 +24,9 @@ const LoginPage = () => {
     validatePassword(password) ? setIsValidPw(true) : setIsValidPw(false);
   };
   const submitLogin = () => {
-    console.log(idInput.current.value, pwInput.current.value);
+    if (disabledLogin) return;
+    localStorage.setItem('id', idInput.current.value);
+    navigate('/');
   };
 
   return (
