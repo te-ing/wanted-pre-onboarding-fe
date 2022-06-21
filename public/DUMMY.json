@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "author": "존 컨스터블",
+    "title": "The Hay Wain",
+    "image": "https://source.unsplash.com/random/600x500"
+  },
+  {
+    "id": 2,
+    "author": "장바티스트카미유 코로",
+    "title": " Ville d’Avray",
+    "image": "https://source.unsplash.com/random/900x500"
+  },
+  {
+    "id": 3,
+    "author": "아르힘 쿠인지",
+    "title": "드네프르 강의 아침",
+    "image": "https://source.unsplash.com/random/700x1080"
+  },
+  {
+    "id": 4,
+    "author": "폴 세잔",
+    "title": "생트 빅투아르 산",
+    "image": "https://source.unsplash.com/random/700x1080"
+  },
+  {
+    "id": 5,
+    "author": "폴 세잔",
+    "title": "에스타크 - 마르세유의 골프 만",
+    "image": "https://source.unsplash.com/random/600x500"
+  }
+]
